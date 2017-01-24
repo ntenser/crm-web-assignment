@@ -1,4 +1,11 @@
+require_relative 'contact'
 require 'sinatra'
+
+# Fake data
+Contact.create('Mark', 'Zuckerberg', 'mark@facebook.com', 'CEO')
+Contact.create('Sergey', 'Brin', 'sergey@google.com', 'Co-Founder')
+Contact.create('Steve', 'Jobs', 'steve@apple.com', 'Visionary')
+
 
 # get '/' do
 #   'Main Menu'
@@ -10,5 +17,14 @@ require 'sinatra'
 
 
 get '/' do
+  @crm_app_name = "Noah's CRM!"
   erb :index
+end
+
+get '/contacts' do
+  erb :contacts
+end
+
+get '/new_contacts' do
+  erb :new_contact
 end
