@@ -12,7 +12,7 @@ class Contact
   attr_reader :id
 
   @@contacts = []
-  @@next_id = 1000
+  @@next_id = 1
 
 # This method should initialize the contact's attributes
   def initialize(first_name, last_name, email, note)
@@ -40,11 +40,7 @@ class Contact
   # This method should accept an id as an argument
   # and return the contact who has that id
   def self.find(id)
-    @@contacts.each do |contact|
-      if id == contact.id
-      return contact
-      end
-    end
+    @@contacts.find { |contact| contact.id == id }
   end
 
   # This method should work similarly to the find method above
@@ -102,6 +98,6 @@ class Contact
   # This method should delete the contact
   # HINT: Check the Array class docs for built-in methods that might be useful here
   def delete
-    @@contacts.delete(self)
+    @@contacts.delete_if { |contact| contact.id == self.id }
   end
 end
