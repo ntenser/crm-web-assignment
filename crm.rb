@@ -1,10 +1,11 @@
 require_relative 'contact'
 require 'sinatra'
 
-# Fake data
-# Contact.create('Mark', 'Zuckerberg', 'mark@facebook.com', 'CEO')
-# Contact.create('Sergey', 'Brin', 'sergey@google.com', 'Co-Founder')
-# Contact.create('Steve', 'Jobs', 'steve@apple.com', 'Visionary')
+Contact.create('Marty', 'McFly', 'marty@mcfly.com', "")
+Contact.create('George', 'McFly', 'george@mcfly.com', "")
+Contact.create('Lorraine', 'McFly', 'lorraine@marty@mcfly.com', "")
+Contact.create('Biff', 'Tannen', 'biff@tannen.com', "")
+Contact.create('Doc', 'Brown', 'doc@brown.com', "")
 
 
 # get '/' do
@@ -15,9 +16,8 @@ require 'sinatra'
 #   'Hello World'
 # end
 
-
+@@crm_app_name = "Noah's CRM"
 get '/' do
-  @crm_app_name = "Noah's CRM!"
   erb :index
 end
 
@@ -31,5 +31,5 @@ end
 
 post '/contacts' do
   Contact.create(params[:first_name], params[:last_name], params[:email], params[:note])
-  redirect to('/contacts')
+  redirect to ('/')
 end

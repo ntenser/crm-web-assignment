@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-
-    <h1><%= @crm_app_name %>!</h1>
-      <p>Main menu</p>
-        <ul>
-          <li><a href="/contacts">View all contacts</a></li>
-        </ul>
-
-  </body>
-</html>
+    <div class="contact_container">
+      <p class="contact_header">There are <span><%= Contact.all.count %></span> contacts</p>
+          <% Contact.all.each do |contact| %>
+          <li class="contact"><%= contact.first_name%> <%= contact.last_name %> (<%= contact.email %>)
+            <br>
+            <a class= "update" href="/">Edit </a> <span>|</span>
+            <a class= "update" href="/">Delete</a>
+            </li>
+          <% end %>
+        </div>
