@@ -61,7 +61,7 @@ put '/contacts/:id' do
     @contact.email = params[:email]
     @contact.note = params[:note]
 
-    redirect to('/contacts')
+    redirect to('/')
   else
     raise Sinatra::NotFound
   end
@@ -71,7 +71,7 @@ delete '/contacts/:id' do
   @contact = Contact.find(params[:id].to_i)
   if @contact
     @contact.delete
-    redirect to('/contacts')
+    redirect to('/')
   else
     raise Sinatra::NotFound
   end

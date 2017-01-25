@@ -1,10 +1,20 @@
     <div class="contact_container">
       <p class="contact_header">There are <span><%= Contact.all.count %></span> contacts</p>
-          <% Contact.all.each do |contact| %>
-          <li class="contact"><%= contact.first_name%> <%= contact.last_name %> (<%= contact.email %>)
-            <br>
-            <a class= "update" href="/">Edit </a> <span>|</span>
-            <a class= "update" href="/">Delete</a>
+      <% Contact.all.each do |contact| %>
+      <li class="contact"><a href= "/contacts/<%=contact.id%>"><%= contact.first_name%> <%= contact.last_name %> (<%= contact.email %>)</a>
+          <br>
+            <a href="/contacts/<%=contact.id%>/edit"><button>Edit Contact</button></a>
+            <form action='/contacts/<%= contact.id %>' method='post'>
+              <input type='hidden' name='_method' value='delete'>
+              <input type='submit' value='Delete Contact'>
+            </form>
             </li>
-          <% end %>
+              <% end %>
         </div>
+
+        <!-- <h1>All Contacts</h1>
+                <ul>
+                  <% Contact.all.each do |contact| %>
+                  <li><a href= "/contacts/<%=contact.id%>"><%= contact.first_name%> <%= contact.last_name %> (<%= contact.email %>)</a></li>
+                  <% end %>
+                  </ul> -->
