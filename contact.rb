@@ -1,103 +1,20 @@
-# Copy your entire Contact class from the old crm assignment here.
-# Then, run the following at the command line:
-#
-#   ruby test/contact_test.rb
-#
-# If your implementation of the Contact class is 'right', then you should see that all tests pass!
+gem 'activerecord', '=4.2.7'
+require 'active_record'
+require 'mini_record'
 
+ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: 'crm-web.sqlite3')
 
+class Contact < ActiveRecord::Base
+ field :first_name, as: :string
+ field :last_name,  as: :string
+ field :email,      as: :string
+ field :note,       as: :text
 
-class Contact
-  attr_accessor :first_name, :last_name, :email, :note
-  attr_reader :id
-
-  @@contacts = []
-  @@next_id = 1
-
-# This method should initialize the contact's attributes
-  def initialize(first_name, last_name, email, note)
-    @id = @@next_id
-    @first_name = first_name
-    @last_name = last_name
-    @email = email
-    @note = note
-    @@next_id += 1
-  end
-
-# This method should return all of the existing contacts
-  def self.all
-    @@contacts
-  end
-
-  # This method should call the initializer,
-  # store the newly created contact, and then return it
-  def self.create(first_name, last_name, email, note)
-    new_contact = self.new(first_name, last_name, email, note)
-    @@contacts << new_contact
-    return new_contact
-  end
-
-  # This method should accept an id as an argument
-  # and return the contact who has that id
-  def self.find(id)
-    @@contacts.find { |contact| contact.id == id }
-  end
-
-  # This method should work similarly to the find method above
-    # but it should allow you to search for a contact using attributes other than id
-    # by specifying both the name of the attribute and the value
-    # eg. searching for 'first_name', 'Betty' should return the first contact named Betty
-  def self.find_by(attribute, value)
-    @@contacts.each do |contact|
-      if attribute == "note"
-        if value == contact.note
-          return contact
-        end
-      elsif attribute == "first_name"
-        if value == contact.first_name
-          return contact
-        end
-      elsif attribute == "last_name"
-        if value == contact.last_name
-        end
-      elsif attribute == "email"
-        if value == contact.email
-        end
-      end
-    end
-  end
-
-# This method should delete all of the contacts
-  def self.delete_all
-    @@contacts = []
-  end
 
   def full_name
     "#{first_name} #{last_name}"
   end
-
-  # This method should allow you to specify
-   # 1. which of the contact's attributes you want to update
-   # 2. the new value for that attribute
-   # and then make the appropriate change to the contact
-  def update(attribute, value)
-    if first_name
-      self.first_name = value
-    end
-    if last_name
-      self.last_name = value
-    end
-    if email
-      self.email = value
-    end
-    if note
-      self.note = value
-    end
-  end
-
-  # This method should delete the contact
-  # HINT: Check the Array class docs for built-in methods that might be useful here
-  def delete
-    @@contacts.delete_if { |contact| contact.id == self.id }
-  end
 end
+
+
+Contact.auto_upgrade!

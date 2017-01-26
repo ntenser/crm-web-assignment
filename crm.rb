@@ -2,11 +2,11 @@ require_relative 'contact'
 require 'sinatra'
 
 ## Temporary fake data so that we always find contact with id 1.
-Contact.create('Marty', 'McFly', 'marty@mcfly.com', "Developer")
-Contact.create('George', 'McFly', 'george@mcfly.com', "Developer")
-Contact.create('Lorraine', 'McFly', 'lorraine@marty@mcfly.com', "Developer")
-Contact.create('Biff', 'Tannen', 'biff@tannen.com', "Developer")
-Contact.create('Doc', 'Brown', 'doc@brown.com', "Developer")
+# Contact.create(fi'Marty', 'McFly', 'marty@mcfly.com', "Developer")
+# Contact.create('George', 'McFly', 'george@mcfly.com', "Developer")
+# Contact.create('Lorraine', 'McFly', 'lorraine@marty@mcfly.com', "Developer")
+# Contact.create('Biff', 'Tannen', 'biff@tannen.com', "Developer")
+# Contact.create('Doc', 'Brown', 'doc@brown.com', "Developer")
 
 
 # get '/' do
@@ -31,8 +31,13 @@ get '/contacts/new' do
 end
 
 post '/contacts' do
-  Contact.create(params[:first_name], params[:last_name], params[:email], params[:note])
-  redirect to ('/')
+  contact = Contact.create(
+    first_name: params[:first_name],
+    last_name:  params[:last_name],
+    email:      params[:email],
+    note:       params[:note]
+  )
+  redirect to('/contacts')
 end
 
 get '/contacts/:id' do
@@ -75,4 +80,8 @@ delete '/contacts/:id' do
   else
     raise Sinatra::NotFound
   end
+end
+
+after do
+  ActiveRecord::Base.connection.close
 end
